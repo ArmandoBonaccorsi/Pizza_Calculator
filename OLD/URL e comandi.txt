@@ -1,0 +1,28 @@
+URL e comandi
+
+
+https://railway.app
+
+Project = 		Pizza_calculator
+Railway Project ID:	2c1bcd86-cd9a-4df8-a349-6403d412d32d
+
+
+------
+
+Allora ecco il trucco: puoi fare tutto in un colpo solo usando un comando Git combinato:
+
+git add app.py && git commit -m "Descrizione modifiche" && git push
+
+
+&& serve a far partire il comando successivo solo se quello precedente ha avuto successo.
+
+Così aggiungi, committi e mandi al repository remoto tutto insieme, senza digitare tre comandi separati.
+
+In pratica, ogni volta che modifichi app.py, ti basta lanciare questa riga unica e Railway vedrà subito le modifiche aggiornate al prossimo deploy.
+
+-------------------------
+
+se si modifica app.py, affinchè le modifiche abbiano effetto, bisogna lanciare dal prompt dei comandi il seguente comando:
+py -3.11 -m streamlit run app.py --server.port 8501 --server.address 0.0.0.0 --server.headless true
+
+

@@ -1,0 +1,72 @@
+
+echo "# Pizza_Calculator" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/ArmandoBonaccorsi/Pizza_Calculator.git
+git push -u origin main
+
+
+
+git remote add origin https://github.com/ArmandoBonaccorsi/Pizza_Calculator.git
+git branch -M main
+git push -u origin main
+
+-------
+
+
+C:\pizzaapp>python -m streamlit run app.py
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.12:8501
+
+-------
+
+Hai detto:
+Si, vorrei continuare con questo approccio, ma avrei anche una curiosità:
+se dovessi fare una modifica alla app, come si aggiorna quella su "Streamlit Cloud"?
+
+🔄 Aggiornare la tua app su Streamlit Cloud
+
+Collegamento a GitHub
+
+Streamlit Cloud prende il codice direttamente da un repository GitHub.
+
+Ogni volta che fai push di modifiche sul repository, Streamlit rileva l’aggiornamento e ricostruisce automaticamente l’app.
+
+Flusso tipico di aggiornamento
+
+Modifichi localmente app.py (o altri file).
+
+Apri il prompt dei comandi nella cartella del progetto:
+
+git add .
+git commit -m "Descrizione modifica"
+git push origin main
+
+
+Streamlit Cloud ricostruisce l’app con la nuova versione.
+
+Tutti gli utenti che aprono il link vedranno subito la versione aggiornata.
+
+💡 In pratica: una volta collegato GitHub, ogni aggiornamento si pubblica automaticamente con un push.
+
+Se vuoi, possiamo procedere step by step per:
+
+Creare un account GitHub (gratuito)
+
+Caricare la tua app (app.py, requirements.txt) su GitHub
+
+Collegare GitHub a Streamlit Cloud e pubblicare la tua app
+
+Vuoi che facciamo così?
+
+---------
+
+git remote add origin https://github.com/ArmandoBonaccorsi/PizzaCalculator.git
+
+https://github.com/ArmandoBonaccorsi/Pizza_Calculator
+

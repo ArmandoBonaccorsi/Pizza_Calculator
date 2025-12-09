@@ -1,0 +1,22 @@
+A. Verifica in locale della app su PIC: la app Funziona
+---
+B. Verifica app su telefono
+
+La app gira e funziona. Tuttavia trovi a seguire le mie osservazioni e le proposte di soluzione di cui ti prego di verificarne la fattibilità.
+1. la prima pagina è data da "Configurazione teglia" anziché dalla home page:"🍕 Calcolatore Ingredienti Pizza" 
+2. i pulsanti "Si, voglio modificare" e "No, continua" non sono visibili nella home page. appare la solamente scritta : "Vuoi aggiungere o rimuovere ingredienti?" Per vedere i pulsanti occorre scrollare verso l'alto. 
+3. Dopo lo scrollo verticale, se scegli il pulsante "Si, voglio modificare" oppure "No, continua", la pagina resta immobile. Però se scrolli ancora trovi finalmente i pulsanti aggiungi/rimuovi ingredienti.
+(non mi sembra friendly)
+
+Proposta di soluzione per i problemi di visibilità di cui ai punti 2. e 3.
+Forse occorrerebbe far vedere i pulsanti "Si voglio modificare" e "No, continua", immediatamente sotto la scritta "Vuoi aggiungere o rimuovere ingredienti?". Se poi premi il pulsante Si occorrerebbe cambiare pagina facendo apparire i pulsanti aggiungi/rimuovi.
+Inoltre, dopo aver aggiunto un ingrediente dovrebbe ritornale a vedersi la home page con la lista degli ingredienti aggiornata e con i pulsanti "Si voglio modificare" e "No, continua", immediatamente sotto la scritta "Vuoi aggiungere o rimuovere ingredienti?"
+Si è creato un loop che andrà avanti fino ache l'utente non prema il pulsante "No, continua". 
+Solo a questo punto dovrebbe comparire la sidebar per la configurazione della teglia con il resto dei pulsanti "1. calcola numero teglie e peso panetto" e poi "2. il pulsante ricomincia")
+
+Che ne pensi?
+
+
+
+
+
