@@ -14,6 +14,38 @@ st.set_page_config(
 )
 
 # ==============================
+# BLOCCO PWA (aggiunto)
+# ==============================
+st.markdown("""
+<link rel="manifest" href="/manifest.json">
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/service-worker.js");
+    });
+  }
+</script>
+""", unsafe_allow_html=True)
+
+# ==============================
+# CARICA ICONA SVG
+# ==============================
+def load_svg(path):
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except:
+        return None
+
+svg_icon = load_svg("pizza_slice.svg")
+
+if svg_icon:
+    st.sidebar.markdown(svg_icon, unsafe_allow_html=True)
+else:
+    st.sidebar.write("🍕")   # fallback
+
+
+# ==============================
 # CSS PER SIDEBAR E TITOLI
 # ==============================
 st.markdown(
@@ -122,20 +154,17 @@ if st.session_state.pagina == "home":
     st.markdown(
         """
         ### 🍕 Calcolatore Teglie di Pizza
-## 👋 Benvenuta Terry!
+        ## 👋 Benvenuta Terry!
 
-**Usa questo strumento per personalizzare gli ingredienti del tuo impasto perfetto e calcolare il numero di teglie risultanti.**
+        **Usa questo strumento per personalizzare gli ingredienti del tuo impasto perfetto e calcolare il numero di teglie risultanti.**
 
-Per gestire gli ingredienti, scegli:
-**"Si, voglio modificare"**  oppure **"No, continua"** per vedere la lista finale.
+        Per gestire gli ingredienti, scegli:
+        **"Si, voglio modificare"**  oppure **"No, continua"** per vedere la lista finale.
 
-Quando i pulsanti non sono visibili, scrolla in verticale.
-Se la sidebar non è visibile, clicca sulle **freccine ">>"** in alto a sinistra per visualizzare i pulsanti di navigazione.
-
+        Quando i pulsanti non sono visibili, scrolla in verticale.
+        Se la sidebar non è visibile, clicca sulle **freccine ">>"** in alto a sinistra per visualizzare i pulsanti di navigazione.
         """
     )
-
-    # st.title("🍕 Calcolatore Teglie di Pizza")
 
     st.header("Ingredienti base (modificabili)")
 
@@ -149,7 +178,6 @@ Se la sidebar non è visibile, clicca sulle **freccine ">>"** in alto a sinistra
     st.subheader("Vuoi modificare la lista degli ingredienti?")
     col1, col2 = st.columns(2)
 
-    # ⛔️ Qui correggiamo il problema del doppio click
     with col1:
         if st.button("Si, voglio modificare", key="modifica_si"):
             st.session_state.pagina = "extra"

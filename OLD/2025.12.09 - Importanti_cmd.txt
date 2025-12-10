@@ -1,0 +1,148 @@
+Mobile app
+
+📁 Struttura delle cartelle
+
+Metti questi file esattamente così:
+
+📂 C:\pizzaapp
+│── app.py
+│── extra.py
+│── finale.py
+
+------------------------
+
+2. Mantieni SOLO questi file nella cartella principale:
+
+📂 C:\pizzaapp
+│── app.py
+│── extra.py
+│── finale.py
+│── venv/
+│── .streamlit/
+
+--------------------------
+
+Creazione di app.pycome app autonoma, indipendente e condivisibile.
+
+Procedo preparando tutto il necessario per pubblicare la tua app:
+✔️ struttura cartelle
+✔️ file requirements.txt
+✔️ file .streamlit/config.toml
+✔️ istruzioni pronte per GitHub
+
+✅ 1. Struttura finale della cartella da caricare su GitHub
+
+Puoi copiare/incollare questa struttura:
+
+pizzaapp/
+│── app.py
+│── extra.py
+│── finale.py
+│── requirements.txt
+│── .streamlit/
+│     └── config.toml
+
+
+📌 NON caricare la cartella venv/
+
+📌 Assicurarsi che app.py, extra.py, finale.py siano esattamente le versioni che funzionano ora.
+
+
+✅ 2. File requirements.txt (PRONTO)
+
+Creare nella cartella pizzaapp/ un file chiamato:
+
+requirements.txt
+
+con dentro:
+
+streamlit
+pandas
+
+Se in futuro serviranno moduli nuovi (numpy, pillow, ecc.), li aggiungeremo.
+
+✅ 3. File .streamlit/config.toml (PRONTO)
+
+Crea la cartella:
+
+pizzaapp/.streamlit/
+
+
+Dentro crea:
+
+config.toml
+
+Con questo contenuto:
+
+[theme]
+primaryColor="#F63366"
+backgroundColor="#FFFFFF"
+secondaryBackgroundColor="#F0F2F6"
+textColor="#000000"
+font="sans serif"
+
+
+Non è obbligatorio, ma stabilizza il tema e Streamlit lo apprezza.
+
+✅ 4. Cosa inserire su GitHub
+
+Alla fine, la cartella deve contenere esattamente questo:
+
+pizzaapp/
+│── app.py
+│── extra.py
+│── finale.py
+│── requirements.txt
+│── .streamlit/
+│     └── config.toml
+
+
+🚀 5. Adesso pubblica su Streamlit Cloud (gratuito)
+
+Quando hai finito:
+
+Carica questa intera cartella nel tuo repository GitHub
+
+Vai su https://share.streamlit.io
+
+Clicca New app
+
+Seleziona il tuo repository
+
+Imposta:
+
+Branch: main
+
+Main file: app.py
+
+Clicca Deploy
+
+In meno di un minuto ti verrà dato un link tipo:
+
+https://tuonome-pizzaapp.streamlit.app
+
+------------------------------------------------------
+
+ 
+
+📂 NUOVA STRUTTURA DEL PROGETTO — COMPLETA
+pizzaapp/
+│
+├── app.py
+├── extra.py
+├── finale.py
+├── pizza_slice.svg        <-- icona da te salvata
+│
+├── .streamlit/
+│     └── config.toml
+│
+└── venv/                  <-- la tua virtual env (già presente)
+
+
+⚠️ L’icona pizza_slice.svg deve trovarsi nella stessa cartella di app.py
+
+
+
+
+
+

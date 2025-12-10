@@ -2,19 +2,13 @@
 import streamlit as st
 import pandas as pd
 
-# ==========================
-# Callback functions
-# ==========================
 def add_and_return():
     nome = st.session_state.get("nome_nuovo_ing", "").strip()
     valore = st.session_state.get("valore_nuovo_ing", 0)
     if nome:
-        # memorizza con "(g)" per coerenza
         key_name = f"{nome} (g)"
         st.session_state.ricetta[key_name] = valore
-        # opzionale: tenere traccia in extra list
         st.session_state.extra.append({"nome": nome, "grammi": valore})
-    # torna alla home; Streamlit eseguirà un rerun automaticamente
     st.session_state.pagina = "home"
 
 def remove_and_return():
@@ -23,16 +17,10 @@ def remove_and_return():
         del st.session_state.ricetta[torem]
     st.session_state.pagina = "home"
 
-# ==========================
-# UI della pagina Extra
-# ==========================
 def show_extra():
     st.title("Gestione Ingredienti Extra")
     st.markdown("---")
 
-    # --------------------------
-    # BOX AGGIUNGI (ridotto 50%)
-    # --------------------------
     st.markdown(
         """
         <div id="add_box" style="
@@ -50,18 +38,14 @@ def show_extra():
         unsafe_allow_html=True,
     )
 
-    # campi (i valori restano in st.session_state)
     st.text_input("Nome nuovo ingrediente", key="nome_nuovo_ing")
     st.number_input("Grammi", min_value=1, value=10, key="valore_nuovo_ing")
 
-    # pulsante con callback (usa on_click per comportamento al primo click)
     st.button("Conferma aggiungi", key="btn_add", on_click=add_and_return)
 
-    # CSS mirato ai bottoni contenuti in questo box:
     st.markdown(
         """
         <style>
-        /* Target only buttons inside add_box */
         #add_box button {
             color: #1E8F39 !important;
             background-color: #E8FFE9 !important;
@@ -80,9 +64,6 @@ def show_extra():
 
     st.markdown("---")
 
-    # --------------------------
-    # BOX RIMUOVI (ridotto 50%)
-    # --------------------------
     st.markdown(
         """
         <div id="rem_box" style="
@@ -101,15 +82,13 @@ def show_extra():
     )
 
     elenco = list(st.session_state.ricetta.keys())
-    if not elenco:
-        st.write("Nessun ingrediente disponibile da rimuovere.")
-        sel = None
-    else:
+    if elenco:
         st.selectbox("Seleziona ingrediente da eliminare", elenco, key="sel_rimuovi")
+    else:
+        st.write("Nessun ingrediente disponibile.")
 
     st.button("Conferma rimuovi", key="btn_remove", on_click=remove_and_return)
 
-    # CSS mirato ai bottoni dentro rem_box
     st.markdown(
         """
         <style>
@@ -129,5 +108,4 @@ def show_extra():
 
     st.markdown("</div>", unsafe_allow_html=True)
 
-    # Piccola conferma visiva (non obbligatoria)
     st.info("Dopo conferma verrai riportato alla Home con la lista aggiornata.")

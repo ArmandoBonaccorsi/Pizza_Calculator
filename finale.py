@@ -8,9 +8,9 @@ def show_finale():
     st.data_editor(df, disabled=True)
     st.subheader(f"Peso totale impasto: {sum(st.session_state.ricetta.values())} g")
 
-    # Configurazione teglia
     st.sidebar.header("Configurazione teglia")
     forma = st.sidebar.radio("Forma teglia", ["Rotonda", "Rettangolare"])
+
     if forma == "Rotonda":
         diametro = st.sidebar.number_input("Diametro (cm)", 10.0, value=30.0)
         larghezza = lunghezza = None
@@ -20,6 +20,7 @@ def show_finale():
         diametro = None
 
     metodo = st.sidebar.radio("Calcolo basato su:", ["Spessore impasto", "Densità impasto"])
+
     if metodo == "Spessore impasto":
         spessore = st.sidebar.number_input("Spessore (mm)", min_value=5, value=8)
         densita = 0.55
@@ -30,6 +31,7 @@ def show_finale():
     st.sidebar.markdown("---")
     if st.sidebar.button("Calcola numero teglie"):
         peso_totale = sum(st.session_state.ricetta.values())
+
         if forma == "Rotonda":
             r = diametro / 2
             area = 3.14159 * r * r
