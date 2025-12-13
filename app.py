@@ -28,22 +28,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==============================
-# CARICA ICONA SVG
+# ICONA SIDEBAR (PNG)
 # ==============================
-def load_svg(path):
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            return f.read()
-    except:
-        return None
-
-svg_icon = load_svg("pizza_slice.svg")
-
-if svg_icon:
-    st.sidebar.markdown(svg_icon, unsafe_allow_html=True)
-else:
-    st.sidebar.write("🍕")   # fallback
-
+try:
+    st.sidebar.image(
+        "assets/pizza_slice.png",
+        width=120,
+        use_column_width=False
+    )
+except Exception:
+    st.sidebar.write("🍕")
 
 # ==============================
 # CSS PER SIDEBAR E TITOLI
