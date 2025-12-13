@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+OLD/
+.___OLD/
+.devcontainer/
+pizza_slice.svg
