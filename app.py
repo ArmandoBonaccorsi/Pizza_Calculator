@@ -9,9 +9,30 @@ import finale
 # ==============================
 st.set_page_config(
     page_title="🍕 Pizza Calculator",
-    page_icon="assets/pizza_slice.png",  # ICONA APP / HOME SCREEN
     layout="wide",
     initial_sidebar_state="expanded"
+)
+
+# ==============================
+# BLOCCO PWA (informativo – Streamlit Cloud ignora manifest custom)
+# ==============================
+st.markdown("""
+<link rel="manifest" href="/manifest.json">
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/service-worker.js");
+    });
+  }
+</script>
+""", unsafe_allow_html=True)
+
+# ==============================
+# ICONA SIDEBAR
+# ==============================
+st.sidebar.image(
+    "assets/pizza_slice.png",
+    width=90
 )
 
 # ==============================
@@ -20,10 +41,12 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+    /* Sidebar più stretta */
     [data-testid="stSidebar"]{
         width: 180px;
     }
 
+    /* Titolo principale compatto */
     h1 {
         font-size: 1.5rem !important;
         line-height: 1.1 !important;
@@ -44,6 +67,7 @@ st.markdown(
 # INIZIALIZZAZIONE SESSION STATE
 # ==============================
 def init_session():
+
     if "ricetta" not in st.session_state:
         st.session_state.ricetta = {
             "Farina (g)": 1000,
@@ -57,6 +81,15 @@ def init_session():
     if "extra" not in st.session_state:
         st.session_state.extra = []
 
+    if "aggiunta_extra" not in st.session_state:
+        st.session_state.aggiunta_extra = None
+
+    if "lista_aggiornata" not in st.session_state:
+        st.session_state.lista_aggiornata = False
+
+    if "calcola_teglie" not in st.session_state:
+        st.session_state.calcola_teglie = False
+
     if "pagina" not in st.session_state:
         st.session_state.pagina = "home"
 
@@ -66,7 +99,7 @@ init_session()
 # FUNZIONE RESET
 # ==============================
 def reset_app():
-    st.session_state.ricetta = {
+    st.session_state["ricetta"] = {
         "Farina (g)": 1000,
         "Acqua (g)": 800,
         "Sale (g)": 25,
@@ -74,8 +107,12 @@ def reset_app():
         "Olio evo (g)": 30,
         "Zucchero (g)": 10
     }
-    st.session_state.extra = []
-    st.session_state.pagina = "home"
+
+    st.session_state["extra"] = []
+    st.session_state["aggiunta_extra"] = None
+    st.session_state["lista_aggiornata"] = False
+    st.session_state["calcola_teglie"] = False
+    st.session_state["pagina"] = "home"
 
 # ==============================
 # SIDEBAR NAVIGAZIONE
@@ -102,17 +139,32 @@ st.sidebar.button("Ricomincia", on_click=reset_app)
 # ==============================
 if st.session_state.pagina == "home":
 
+    # TITOLO CON ICONA
     st.markdown(
         """
-        ### 🍕 Calcolatore Teglie di Pizza
-        ## 👋 Benvenuta Terry!
+        <div style="display:flex; align-items:center; gap:12px;">
+            <img src="assets/pizza_slice.png" width="48">
+            <h3 style="margin:0;">Calcolatore Teglie di Pizza</h3>
+        </div>
+        <h4>👋 Benvenuta Terry!</h4>
 
-        **Usa questo strumento per personalizzare gli ingredienti del tuo impasto perfetto e calcolare il numero di teglie risultanti.**
+        <p>
+        <strong>Usa questo strumento per personalizzare gli ingredienti del tuo impasto perfetto
+        e calcolare il numero di teglie risultanti.</strong>
+        </p>
 
-        Scegli:
-        **"Si, voglio modificare"** per gestire gli ingredienti  
-        **"No, continua"** per vedere la lista finale.
-        """
+        <p>
+        Per gestire gli ingredienti, scegli:
+        <strong>"Sì, voglio modificare"</strong> oppure
+        <strong>"No, continua"</strong> per vedere la lista finale.
+        </p>
+
+        <p>
+        Quando i pulsanti non sono visibili, scorri in verticale.
+        Se la sidebar non è visibile, clicca sulle <strong>frecce “>>”</strong> in alto a sinistra.
+        </p>
+        """,
+        unsafe_allow_html=True
     )
 
     st.header("Ingredienti base (modificabili)")
@@ -131,7 +183,7 @@ if st.session_state.pagina == "home":
     col1, col2 = st.columns(2)
 
     with col1:
-        if st.button("Si, voglio modificare"):
+        if st.button("Sì, voglio modificare"):
             st.session_state.pagina = "extra"
             st.rerun()
 
