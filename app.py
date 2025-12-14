@@ -8,79 +8,48 @@ import finale
 # CONFIG STREAMLIT
 # ==============================
 st.set_page_config(
-    page_title="🍕 Pizza Calculator",
+    page_title="Pizza Calculator",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # ==============================
-# BLOCCO PWA (informativo – Streamlit Cloud ignora manifest custom)
+# BLOCCO PWA (best effort su Streamlit Cloud)
 # ==============================
-col_icon, col_title = st.columns([1, 10], vertical_alignment="center")
-
-with col_icon:
-    st.image("assets/pizza_slice.png", width=48)
-
-with col_title:
-    st.markdown("### Calcolatore Teglie di Pizza")
-
-st.markdown("#### 👋 Benvenuta Terry!")
-
-st.markdown(
-    """
-    **Usa questo strumento per personalizzare gli ingredienti del tuo impasto perfetto
-    e calcolare il numero di teglie risultanti.**
-
-    Per gestire gli ingredienti, scegli:
-    **\"Sì, voglio modificare\"** oppure **\"No, continua\"** per vedere la lista finale.
-
-    Quando i pulsanti non sono visibili, scorri in verticale.
-    Se la sidebar non è visibile, clicca sulle **frecce “>>”** in alto a sinistra.
-    """
-)
-
+st.markdown("""
+<link rel="manifest" href="/manifest.json">
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/service-worker.js");
+    });
+  }
+</script>
+""", unsafe_allow_html=True)
 
 # ==============================
-# ICONA SIDEBAR
+# SIDEBAR ICONA
 # ==============================
-st.sidebar.image(
-    "assets/pizza_slice.png",
-    width=90
-)
+st.sidebar.image("assets/pizza_slice.png", width=120)
 
 # ==============================
-# CSS PER SIDEBAR E TITOLI
+# CSS
 # ==============================
-st.markdown(
-    """
-    <style>
-    /* Sidebar più stretta */
-    [data-testid="stSidebar"]{
-        width: 180px;
-    }
-
-    /* Titolo principale compatto */
-    h1 {
-        font-size: 1.5rem !important;
-        line-height: 1.1 !important;
-        font-weight: 700 !important;
-    }
-
-    h2 {
-        font-size: 1.15rem !important;
-        margin-top: 0.15rem !important;
-        margin-bottom: 0.15rem !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+st.markdown("""
+<style>
+[data-testid="stSidebar"] {
+    width: 180px;
+}
+h1 {
+    font-size: 1.5rem !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ==============================
 # INIZIALIZZAZIONE SESSION STATE
 # ==============================
 def init_session():
-
     if "ricetta" not in st.session_state:
         st.session_state.ricetta = {
             "Farina (g)": 1000,
@@ -94,38 +63,21 @@ def init_session():
     if "extra" not in st.session_state:
         st.session_state.extra = []
 
-    if "aggiunta_extra" not in st.session_state:
-        st.session_state.aggiunta_extra = None
-
-    if "lista_aggiornata" not in st.session_state:
-        st.session_state.lista_aggiornata = False
-
-    if "calcola_teglie" not in st.session_state:
-        st.session_state.calcola_teglie = False
-
     if "pagina" not in st.session_state:
         st.session_state.pagina = "home"
 
 init_session()
 
 # ==============================
-# FUNZIONE RESET
+# TITOLO PRINCIPALE (UNICO)
 # ==============================
-def reset_app():
-    st.session_state["ricetta"] = {
-        "Farina (g)": 1000,
-        "Acqua (g)": 800,
-        "Sale (g)": 25,
-        "Lievito fresco (g)": 8,
-        "Olio evo (g)": 30,
-        "Zucchero (g)": 10
-    }
+col_icon, col_title = st.columns([1, 12], vertical_alignment="center")
 
-    st.session_state["extra"] = []
-    st.session_state["aggiunta_extra"] = None
-    st.session_state["lista_aggiornata"] = False
-    st.session_state["calcola_teglie"] = False
-    st.session_state["pagina"] = "home"
+with col_icon:
+    st.image("assets/pizza_slice.png", width=42)
+
+with col_title:
+    st.markdown("## Calcolatore Teglie di Pizza")
 
 # ==============================
 # SIDEBAR NAVIGAZIONE
@@ -145,40 +97,25 @@ if st.sidebar.button("Lista finale ingredienti"):
     st.rerun()
 
 st.sidebar.markdown("---")
-st.sidebar.button("Ricomincia", on_click=reset_app)
 
 # ==============================
 # PAGINE
 # ==============================
 if st.session_state.pagina == "home":
 
-    # TITOLO CON ICONA
-    st.markdown(
-        """
-        <div style="display:flex; align-items:center; gap:12px;">
-            <img src="assets/pizza_slice.png" width="48">
-            <h3 style="margin:0;">Calcolatore Teglie di Pizza</h3>
-        </div>
-        <h4>👋 Benvenuta Terry!</h4>
+    # 🔵 SOLO MESSAGGIO DI BENVENUTO (senza titolo duplicato)
+    st.markdown("""
+    ### 👋 Benvenuta Terry!
 
-        <p>
-        <strong>Usa questo strumento per personalizzare gli ingredienti del tuo impasto perfetto
-        e calcolare il numero di teglie risultanti.</strong>
-        </p>
+    **Usa questo strumento per personalizzare gli ingredienti del tuo impasto perfetto
+    e calcolare il numero di teglie risultanti.**
 
-        <p>
-        Per gestire gli ingredienti, scegli:
-        <strong>"Sì, voglio modificare"</strong> oppure
-        <strong>"No, continua"</strong> per vedere la lista finale.
-        </p>
+    Per gestire gli ingredienti, scegli:
+    **"Sì, voglio modificare"** oppure **"No, continua"** per vedere la lista finale.
 
-        <p>
-        Quando i pulsanti non sono visibili, scorri in verticale.
-        Se la sidebar non è visibile, clicca sulle <strong>frecce “>>”</strong> in alto a sinistra.
-        </p>
-        """,
-        unsafe_allow_html=True
-    )
+    Quando i pulsanti non sono visibili, scorri in verticale.
+    Se la sidebar non è visibile, clicca sulle freccine **">>"** in alto a sinistra.
+    """)
 
     st.header("Ingredienti base (modificabili)")
 
@@ -192,7 +129,6 @@ if st.session_state.pagina == "home":
     for _, row in edited_df.iterrows():
         st.session_state.ricetta[row["Ingrediente"]] = row["Grammi"]
 
-    st.subheader("Vuoi modificare la lista degli ingredienti?")
     col1, col2 = st.columns(2)
 
     with col1:
