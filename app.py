@@ -16,16 +16,29 @@ st.set_page_config(
 # ==============================
 # BLOCCO PWA (informativo – Streamlit Cloud ignora manifest custom)
 # ==============================
-st.markdown("""
-<link rel="manifest" href="/manifest.json">
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("/service-worker.js");
-    });
-  }
-</script>
-""", unsafe_allow_html=True)
+col_icon, col_title = st.columns([1, 10], vertical_alignment="center")
+
+with col_icon:
+    st.image("assets/pizza_slice.png", width=48)
+
+with col_title:
+    st.markdown("### Calcolatore Teglie di Pizza")
+
+st.markdown("#### 👋 Benvenuta Terry!")
+
+st.markdown(
+    """
+    **Usa questo strumento per personalizzare gli ingredienti del tuo impasto perfetto
+    e calcolare il numero di teglie risultanti.**
+
+    Per gestire gli ingredienti, scegli:
+    **\"Sì, voglio modificare\"** oppure **\"No, continua\"** per vedere la lista finale.
+
+    Quando i pulsanti non sono visibili, scorri in verticale.
+    Se la sidebar non è visibile, clicca sulle **frecce “>>”** in alto a sinistra.
+    """
+)
+
 
 # ==============================
 # ICONA SIDEBAR
